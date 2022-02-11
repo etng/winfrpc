@@ -19,22 +19,31 @@ EOT
 
 
 cat<<EOT>frpc.ini
-
 [common]
-server_addr = xx.xx.xx.xx #你的公网机器的ip地址
-server_port = 7000
+server_addr = 12.34.56.78
+server_port = 6318
+privilege_token = HUknows1
+; some times it's token, misguiding field
+token = HUknows1
 
-[ssh]
+[rdp]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 3389
 remote_port = 6000
+
+[mls]
+type = tcp
+local_ip = 192.168.4.155
+local_port = 22
+remote_port = 7155
 EOT
 
-cat<<EOT>test.vbs
+cat<<EOT>run_hidden.vbs
 Set ws = CreateObject("Wscript.Shell")
 ws.run "cmd /c frpc.exe -c frpc.ini",vbhide
 EOT
 
 git add .
 git commit -am 'updated'
+
